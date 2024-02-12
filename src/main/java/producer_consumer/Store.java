@@ -3,7 +3,7 @@ package producer_consumer;
 class Store {
 
     private int product = 0;
-    private final int CAPACITY = 20;
+    private final int CAPACITY = 30;
 
     public synchronized void getProduct(int amount) {
 

@@ -12,9 +12,9 @@ class Consumer extends Thread {
 
     @Override
     public void run() {
-        int n = 0;
 
-        while (true) {
+        int n = 0;
+        while (n++ < 4) {
             int amount = (int) (Math.random() * 10) + 1;
             int time = (int) (Math.random() * 1000);
 
