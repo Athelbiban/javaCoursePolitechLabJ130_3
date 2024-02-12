@@ -7,10 +7,11 @@ class Store {
 
     public synchronized void getProduct(int amount) {
 
-        System.out.println(Thread.currentThread().getName() + " прибыл на склад.");
+        String threadName = Thread.currentThread().getName();
+        System.out.println(threadName + " прибыл на склад.");
 
         while (product < amount) {
-            System.out.println("Недостаточно товара, " + Thread.currentThread().getName() + " ждет...");
+            System.out.println("Недостаточно товара, " + threadName + " ждет...");
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -19,20 +20,18 @@ class Store {
         }
 
         product -= amount;
-        System.out.println(
-            Thread.currentThread().getName() + " купил " + amount + " товаров. Товара на складе: " + product
-        );
+        System.out.println(threadName + " купил " + amount + " товаров. Товара на складе: " + product);
         notifyAll();
-
-        System.out.println(Thread.currentThread().getName() + " покинул склад.");
+        System.out.println(threadName + " покинул склад.");
     }
 
     public synchronized void putProduct(int amount) {
 
-        System.out.println(Thread.currentThread().getName() + " прибыл на склад.");
+        String threadName = Thread.currentThread().getName();
+        System.out.println(threadName + " прибыл на склад.");
 
         while (product + amount > CAPACITY) {
-            System.out.println("Склад переполнен, " + Thread.currentThread().getName() + " ждет...");
+            System.out.println("Склад переполнен, " + threadName + " ждет...");
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -41,11 +40,8 @@ class Store {
         }
 
         product += amount;
-        System.out.println(
-            Thread.currentThread().getName() + " добавил " + amount + " товаров. Товара на складе: " + product
-        );
+        System.out.println(threadName + " добавил " + amount + " товаров. Товара на складе: " + product);
         notifyAll();
-
-        System.out.println(Thread.currentThread().getName() + " покинул склад.");
+        System.out.println(threadName + " покинул склад.");
     }
 }
