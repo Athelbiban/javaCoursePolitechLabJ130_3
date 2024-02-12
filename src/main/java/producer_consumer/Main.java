@@ -1,13 +1,20 @@
 package producer_consumer;
 
 public class Main {
+
     public static void main(String[] args) {
 
-        Storage storage = new Storage();
-        Producer p = new Producer(storage);
-        Consumer c = new Consumer(storage);
+        Store store = new Store();
 
-        p.thread.start();
-        c.thread.start();
+        for (int i = 0; i < 3; i++) {
+            Producer producer = new Producer(store, "Производитель_" + i);
+            producer.getThread().start();
+        }
+
+        for (int i = 0; i < 3; i++) {
+            Consumer consumer = new Consumer(store, "Потребитель_" + i);
+            consumer.getThread().start();
+        }
+
     }
 }

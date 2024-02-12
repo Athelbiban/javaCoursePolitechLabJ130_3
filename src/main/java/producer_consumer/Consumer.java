@@ -1,22 +1,47 @@
 package producer_consumer;
 
-public class Consumer implements Runnable {
+class Consumer extends Thread {
 
-    Storage storage;
-    Thread thread;
+    private Store store;
+    private Thread thread;
 
-    public Consumer(Storage storage) {
-        this.storage = storage;
-        thread = new Thread(this, "Потребитель");
+    public Consumer(Store store, String name) {
+        this.store = store;
+        this.thread = new Thread(this, name);
     }
 
     @Override
     public void run() {
+        int n = 0;
 
-        int i = 1;
+        while (true) {
+            int amount = (int) (Math.random() * 10) + 1;
+            int time = (int) (Math.random() * 1000);
 
-        while(i < 4) {
-            storage.get(i++);
+            store.getProduct(amount);
+
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public Thread getThread() {
+        return thread;
+    }
+
+    public void setThread(Thread thread) {
+        this.thread = thread;
+    }
+
 }

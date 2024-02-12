@@ -1,22 +1,47 @@
 package producer_consumer;
 
-public class Producer implements Runnable {
+class Producer extends Thread {
 
-    Storage storage;
-    Thread thread;
-
-    public Producer(Storage storage) {
-        this.storage = storage;
-        this.thread = new Thread(this, "Производитель");
-    }
+    private Store store;
+    private Thread thread;
 
     @Override
     public void run() {
 
-        int i = 1;
+        while (true) {
+            int amount = (int) (Math.random() * 10) + 1;
+            int time = (int) (Math.random() * 1000);
 
-        while(i < 4) {
-            storage.put(i++);
+            store.putProduct(amount);
+
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
+
+    public Producer(Store store, String name) {
+
+        this.store = store;
+        thread = new Thread(this, name);
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public Thread getThread() {
+        return thread;
+    }
+
+    public void setThread(Thread thread) {
+        this.thread = thread;
+    }
+
 }
