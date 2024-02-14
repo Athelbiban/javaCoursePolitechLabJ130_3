@@ -6,6 +6,7 @@ class Consumer extends Thread {
     private Thread thread;
 
     public Consumer(Store store, String name) {
+
         this.store = store;
         this.thread = new Thread(this, name);
     }
@@ -13,8 +14,7 @@ class Consumer extends Thread {
     @Override
     public void run() {
 
-        int n = 0;
-        while (n++ < 4) {
+        while (true) {
             int amount = (int) (Math.random() * 10) + 1;
             int time = (int) (Math.random() * 1000);
 

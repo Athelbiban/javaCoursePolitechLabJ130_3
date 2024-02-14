@@ -5,11 +5,16 @@ class Producer extends Thread {
     private Store store;
     private Thread thread;
 
+    public Producer(Store store, String name) {
+
+        this.store = store;
+        thread = new Thread(this, name);
+    }
+
     @Override
     public void run() {
 
-        int n = 0;
-        while (n++ < 4) {
+        while (true) {
             int amount = (int) (Math.random() * 10) + 1;
             int time = (int) (Math.random() * 1000);
 
@@ -21,12 +26,6 @@ class Producer extends Thread {
                 throw new RuntimeException(e);
             }
         }
-    }
-
-    public Producer(Store store, String name) {
-
-        this.store = store;
-        thread = new Thread(this, name);
     }
 
     public Store getStore() {

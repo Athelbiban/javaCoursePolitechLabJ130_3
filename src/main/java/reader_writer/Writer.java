@@ -2,9 +2,11 @@ package reader_writer;
 
 class Writer extends Thread {
     private Database db;
+    private Thread thread;
 
-    public Writer(Database db) {
+    public Writer(Database db, String name) {
         this.db = db;
+        thread = new Thread(this, name);
     }
 
     @Override
@@ -20,5 +22,9 @@ class Writer extends Thread {
                 e.printStackTrace();
             }
         }
+    }
+
+    public Thread getThread() {
+        return thread;
     }
 }

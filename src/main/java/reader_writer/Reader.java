@@ -2,13 +2,17 @@ package reader_writer;
 
 class Reader extends Thread {
     private Database db;
+    private Thread thread;
 
-    public Reader(Database db) {
+    public Reader(Database db, String name) {
+
         this.db = db;
+        thread = new Thread(this, name);
     }
 
     @Override
     public void run() {
+
         while (true) {
             try {
                 db.startRead();
@@ -19,5 +23,9 @@ class Reader extends Thread {
                 e.printStackTrace();
             }
         }
+    }
+
+    public Thread getThread() {
+        return thread;
     }
 }
